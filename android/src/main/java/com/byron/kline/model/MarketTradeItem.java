@@ -8,7 +8,7 @@ import java.io.Serializable;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.model
  * @FileName     : MarketTradeItem.java
  * @Author       : chao
  * @Date         : 2019/4/10

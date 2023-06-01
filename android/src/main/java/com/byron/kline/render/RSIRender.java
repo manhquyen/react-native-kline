@@ -3,7 +3,6 @@ package com.byron.kline.render;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
 import androidx.annotation.NonNull;
 
 import com.byron.kline.base.BaseKChartView;
@@ -17,8 +16,8 @@ import java.util.Arrays;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
- * @FileName     : RSIDraw.java
+ * @PackageName  : com.byron.kline.render
+ * @FileName     : RSIRender.java
  * @Author       : chao
  * @Date         : 2019/4/8
  * @Email        : icechliu@gmail.com
@@ -32,7 +31,6 @@ public class RSIRender extends BaseRender {
     private Paint rsi1Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint rsi2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint rsi3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private ValueFormatter valueFormatter = new ValueFormatter();
     private final int indexInterval;
 
     public RSIRender(Context context) {
@@ -108,17 +106,6 @@ public class RSIRender extends BaseRender {
     @Override
     public void startAnim(BaseKChartView view, float... values) {
 
-    }
-
-    @Override
-    public IValueFormatter getValueFormatter() {
-
-        return valueFormatter;
-    }
-
-    @Override
-    public void setValueFormatter(IValueFormatter valueFormatter) {
-        this.valueFormatter = new ValueFormatter();
     }
 
     @Override

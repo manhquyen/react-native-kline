@@ -6,7 +6,7 @@ import android.view.View;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.model
  * @FileName     : PriceItemClickListener.java
  * @Author       : chao
  * @Date         : 2019/4/10

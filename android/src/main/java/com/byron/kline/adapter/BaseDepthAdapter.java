@@ -11,16 +11,16 @@ import java.util.List;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.base
+ * @PackageName  : com.byron.kline.adapter
  * @FileName     : BaseDepthAdapter.java
  * @Author       : chao
  * @Date         : 2019/4/9
  * @Email        : icechliu@gmail.com
  * @version      : V1
  *************************************************************************/
-public abstract class BaseDepthAdapter implements IAdapter {
+public abstract class BaseDepthAdapter extends BaseKLineChartAdapter {
 
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private final DataSetObservable mDataSetObservable = new DataSetObservable();
     protected float[] tempLeftDatas;
     protected float[] tempRightDatas;

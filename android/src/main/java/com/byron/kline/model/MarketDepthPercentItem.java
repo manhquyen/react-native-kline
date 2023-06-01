@@ -3,7 +3,7 @@ package com.byron.kline.model;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.model
  * @FileName     : MarketDepthPercentItem.java
  * @Author       : chao
  * @Date         : 2019/4/10

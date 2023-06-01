@@ -3,9 +3,7 @@ package com.byron.kline.render;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
 import androidx.annotation.NonNull;
-
 import com.byron.kline.base.BaseRender;
 import com.byron.kline.base.BaseKChartView;
 import com.byron.kline.formatter.IValueFormatter;
@@ -15,8 +13,8 @@ import com.byron.kline.utils.Constants;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
- * @FileName     : WRDraw.java
+ * @PackageName  : com.byron.kline.render
+ * @FileName     : WRRender.java
  * @Author       : chao
  * @Date         : 2019/4/8
  * @Email        : icechliu@gmail.com
@@ -27,7 +25,6 @@ public class WRRender extends BaseRender {
     private Paint r1Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint r2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint r3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private ValueFormatter valueFormatter = new ValueFormatter();
     private final int indexInterval;
     private final String legendText;
 
@@ -57,17 +54,6 @@ public class WRRender extends BaseRender {
             String temp = getValueFormatter().format(values[Constants.INDEX_WR_1]) + " ";
             canvas.drawText(temp, x, y, r1Paint);
         }
-    }
-
-    @Override
-    public IValueFormatter getValueFormatter() {
-
-        return valueFormatter;
-    }
-
-    @Override
-    public void setValueFormatter(IValueFormatter valueFormatter) {
-        this.valueFormatter = new ValueFormatter();
     }
 
     @Override

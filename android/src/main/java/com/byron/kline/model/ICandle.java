@@ -6,7 +6,7 @@ import java.text.ParseException;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.model
  * @FileName     : ICandle.java
  * @Author       : chao
  * @Date         : 2019/4/8

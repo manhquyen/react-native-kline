@@ -3,7 +3,7 @@ package com.byron.kline.formatter;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.formatter
  * @FileName     : IValueFormatter.java
  * @Author       : chao
  * @Date         : 2019/4/8
@@ -17,5 +17,5 @@ public interface IValueFormatter {
      * @param value 传入的value值
      * @return 返回字符串
      */
-    String format(float value);
+    String format(double value);
 }

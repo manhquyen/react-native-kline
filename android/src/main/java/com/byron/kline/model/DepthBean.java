@@ -6,7 +6,7 @@ import java.util.List;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.icechao.demo.websocket.bean
+ * @PackageName  : com.byron.kline.model
  * @FileName     : DepthBean.java
  * @Author       : chao
  * @Date         : 2019/4/23

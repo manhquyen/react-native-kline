@@ -4,7 +4,7 @@ package com.byron.kline.model;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.model
  * @FileName     : KLineEntity.java
  * @Author       : chao
  * @Date         : 2019/4/8

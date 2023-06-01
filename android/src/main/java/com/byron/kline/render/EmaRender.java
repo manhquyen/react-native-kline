@@ -3,13 +3,10 @@ package com.byron.kline.render;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
 import androidx.annotation.NonNull;
 
 import com.byron.kline.base.BaseKChartView;
 import com.byron.kline.base.BaseRender;
-import com.byron.kline.formatter.IValueFormatter;
-import com.byron.kline.formatter.ValueFormatter;
 import com.byron.kline.utils.Constants;
 
 import java.util.Arrays;
@@ -17,8 +14,8 @@ import java.util.Arrays;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
- * @FileName     : RSIDraw.java
+ * @PackageName  : com.byron.kline.render
+ * @FileName     : EmaRender.java
  * @Author       : chao
  * @Date         : 2019/4/8
  * @Email        : icechliu@gmail.com
@@ -32,7 +29,6 @@ public class EmaRender extends BaseRender {
     private Paint rsi1Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint rsi2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint rsi3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private ValueFormatter valueFormatter = new ValueFormatter();
     private final int indexInterval;
 
     public EmaRender(Context context) {
@@ -110,16 +106,6 @@ public class EmaRender extends BaseRender {
 
     }
 
-    @Override
-    public IValueFormatter getValueFormatter() {
-
-        return valueFormatter;
-    }
-
-    @Override
-    public void setValueFormatter(IValueFormatter valueFormatter) {
-        this.valueFormatter = new ValueFormatter();
-    }
 
     @Override
     public void setItemCount(int mItemCount) {

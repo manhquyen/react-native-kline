@@ -1,24 +1,22 @@
-package com.byron.kline.utils;
+package com.byron.kline.formatter;
 
 /*************************************************************************
  * Description   :
  *
  * @PackageName  : com.byron.kline.utils
- * @FileName     : SlidLisenter.java
+ * @FileName     : IValueFormatter.java
  * @Author       : chao
- * @Date         : 2019-06-10
+ * @Date         : 2019/4/8
  * @Email        : icechliu@gmail.com
  * @version      : V1
  *************************************************************************/
-public interface SlidListener {
+public interface IYValueFormatter {
 
     /**
-     * the kline slid to left
+     * 格式化value
+     *
+     * @param value 传入的value值
+     * @return 返回字符串
      */
-    void onSlidLeft();
-
-    /**
-     * the kline slid to right
-     */
-    void onSlidRight();
+    String format(double max,double min,double value);
 }

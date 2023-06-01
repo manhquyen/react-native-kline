@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.byron.kline.adapter.KLineChartAdapter;
 import com.byron.kline.formatter.ValueFormatter;
-import com.byron.kline.utils.SlidListener;
+import com.byron.kline.callback.SlidListener;
 import com.byron.kline.utils.Status;
 import com.byron.kline.view.KChartView;
 import com.facebook.react.bridge.Arguments;
@@ -433,10 +433,10 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
         _chartView.setLimitTextColor(Color.parseColor(limitTextColor));
     }
 
-    @ReactProp(name = "candleHollow")
-    public void setCandleHollow(ViewGroup view, int candleHollow) {
-        _chartView.setCandleSolid(Status.HollowModel.getStrokeModel(candleHollow));
-    }
+//    @ReactProp(name = "candleHollow")
+//    public void setCandleHollow(ViewGroup view, int candleHollow) {
+//        _chartView.setCandleSolid(Status.HollowModel.getStrokeModel(candleHollow));
+//    }
 
     @ReactProp(name = "gridLineWidth")
     public void setGridLineWidth(ViewGroup view, float gridLineWidth) {
@@ -458,10 +458,10 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
         _chartView.setGridColumns(gridLineColumns);
     }
 
-    @ReactProp(name = "macdStrokeWidth")
-    public void setMacdStrokeWidth(ViewGroup view, float macdStrokeWidth) {
-        _chartView.setMacdStrockWidth(macdStrokeWidth);
-    }
+//    @ReactProp(name = "macdStrokeWidth")
+//    public void setMacdStrokeWidth(ViewGroup view, float macdStrokeWidth) {
+//        _chartView.setMacdStrockWidth(macdStrokeWidth);
+//    }
 
     @ReactProp(name = "macdIncreaseColor")
     public void setMacdIncreaseColor(ViewGroup view, String macdIncreaseColor) {
@@ -641,9 +641,8 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
     @ReactProp(name = "pricePrecision")
     public void setPricePrecision(ViewGroup view, int pricePrecision) {
         _pricePrecision = pricePrecision;
-        _chartView.setValueFormatter(
+        _chartView.setMainValueFormatter(
                 new ValueFormatter() {
-                    @Override
                     public String format(float value) {
                         return String.format(Locale.CHINA, "%." + _pricePrecision + "f", value);
                     }
@@ -654,9 +653,8 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
     @ReactProp(name = "volumePrecision")
     public void setVolumePrecision(ViewGroup view, int volumePrecision) {
         _volumePrecision = volumePrecision;
-        _chartView.setVolFormatter(
+        _chartView.setMainValueFormatter(
                 new ValueFormatter() {
-                    @Override
                     public String format(float value) {
                         return String.format(Locale.CHINA, "%." + _volumePrecision + "f", value);
                     }
@@ -702,7 +700,7 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
             initChartView();
         }
         if (options.event.equals("update") && _adapter != null) {
-            List<KChartBean> datas = _adapter.getDatas();
+            List<KChartBean> datas = _adapter.getDataSource();
             if (datas.size() < 2) {
                 return;
             }
@@ -738,7 +736,7 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
     }
 
     public void onReceiveNativeEvent() {
-        List<KChartBean> list = _adapter.getDatas();
+        List<KChartBean> list = _adapter.getDataSource();
         WritableMap event = Arguments.createMap();
         event.putDouble("id", list.get(0).id);
         _mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
@@ -774,9 +772,9 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
             return;
         }
         _chartView.hideSelectData();
-        _chartView.changeMainDrawType(Status.MainStatus.NONE);
-        _chartView.setIndexDraw(Status.IndexStatus.NONE);
-        _chartView.setKlineState(Status.KlineStatus.K_LINE);
+        _chartView.changeMainDrawType(Status.MAIN_NONE);
+        _chartView.setIndexDraw(Status.INDEX_NONE);
+        _chartView.setKlineState(Status.K_LINE_SHOW_CANDLE_LINE);
         _chartView.setVolShowState(false);
     }
 
@@ -786,34 +784,34 @@ public class ByronKlineManager extends ViewGroupManager<ViewGroup> {
         }
         if ("0.0".equals(status)) { // 显示MA
             _chartView.hideSelectData();
-            _chartView.changeMainDrawType(Status.MainStatus.MA);
+            _chartView.changeMainDrawType(Status.MAIN_MA);
         } else if ("1.0".equals(status)) {  // BOLL
             _chartView.hideSelectData();
-            _chartView.changeMainDrawType(Status.MainStatus.BOLL);
+            _chartView.changeMainDrawType(Status.MAIN_BOLL);
         } else if ("2.0".equals(status)) { // MainStateNONE
             _chartView.hideSelectData();
-            _chartView.changeMainDrawType(Status.MainStatus.NONE);
+            _chartView.changeMainDrawType(Status.MAIN_NONE);
         } else if ("3.0".equals(status)) { // SecondaryStateMacd
             _chartView.hideSelectData();
-            _chartView.setIndexDraw(Status.IndexStatus.MACD);
+            _chartView.setIndexDraw(Status.INDEX_MACD);
         } else if ("4.0".equals(status)) { // SecondaryStateKDJ
             _chartView.hideSelectData();
-            _chartView.setIndexDraw(Status.IndexStatus.KDJ);
+            _chartView.setIndexDraw(Status.INDEX_KDJ);
         } else if ("5.0".equals(status)) { // SecondaryStateRSI
             _chartView.hideSelectData();
-            _chartView.setIndexDraw(Status.IndexStatus.RSI);
+            _chartView.setIndexDraw(Status.INDEX_RSI);
         } else if ("6.0".equals(status)) { // SecondaryStateWR
             _chartView.hideSelectData();
-            _chartView.setIndexDraw(Status.IndexStatus.WR);
+            _chartView.setIndexDraw(Status.INDEX_WR);
         } else if ("7.0".equals(status)) { // SecondaryStateNONE
             _chartView.hideSelectData();
-            _chartView.setIndexDraw(Status.IndexStatus.NONE);
+            _chartView.setIndexDraw(Status.INDEX_NONE);
         } else if ("8.0".equals(status)) { // ShowLine 显示分时图
             _chartView.hideSelectData();
-            _chartView.setKlineState(Status.KlineStatus.TIME_LINE);
+            _chartView.setKlineState(Status.KLINE_SHOW_TIME_LINE);
         } else if ("9.0".equals(status)) { // HideLine 隐藏分时图
             _chartView.hideSelectData();
-            _chartView.setKlineState(Status.KlineStatus.K_LINE);
+            _chartView.setKlineState(Status.K_LINE_SHOW_CANDLE_LINE);
         } else if ("10.0".equals(status)) { // 显示成交量
             _chartView.setVolShowState(true);
         } else if ("11.0".equals(status)) { // 隐藏成交量

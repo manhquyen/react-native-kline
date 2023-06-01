@@ -9,20 +9,18 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import androidx.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.byron.kline.R;
 import com.byron.kline.formatter.IValueFormatter;
 import com.byron.kline.formatter.ValueFormatter;
 import com.byron.kline.model.MarketDepthPercentItem;
 import com.byron.kline.utils.DpUtil;
-import com.byron.kline.utils.NumberTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -510,7 +508,7 @@ public class DepthChartView extends View implements GestureDetector.OnGestureLis
     }
 
     private String verticalCoordinatePlace(double f) {
-        return NumberTools.formatAmount(valueFormatter.format((float) f));
+        return valueFormatter.format((float) f);
     }
 
 

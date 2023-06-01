@@ -5,7 +5,7 @@ import java.io.Serializable;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.entity
+ * @PackageName  : com.byron.kline.model
  * @FileName     : IDepth.java
  * @Author       : chao
  * @Date         : 2019/4/8

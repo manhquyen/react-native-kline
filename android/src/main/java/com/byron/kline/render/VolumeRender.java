@@ -3,16 +3,12 @@ package com.byron.kline.render;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
 import androidx.annotation.NonNull;
 
 import com.byron.kline.R;
 import com.byron.kline.base.BaseKChartView;
 import com.byron.kline.base.BaseRender;
-import com.byron.kline.formatter.IValueFormatter;
-import com.byron.kline.formatter.ValueFormatter;
 import com.byron.kline.utils.Constants;
-import com.byron.kline.utils.NumberTools;
 import com.byron.kline.utils.Status;
 
 import java.util.Arrays;
@@ -20,8 +16,8 @@ import java.util.Arrays;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
- * @FileName     : VolumeDraw.java
+ * @PackageName  : com.byron.kline.render
+ * @FileName     : VolumeRender.java
  * @Author       : chao
  * @Date         : 2019/4/8
  * @Email        : icechliu@gmail.com
@@ -36,7 +32,6 @@ public class VolumeRender extends BaseRender {
     private Paint maTwoPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint volLeftPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private float volWidth, lineVolWidth, volLegendMarginTop, endMaOne, endMaTwo;
-    private IValueFormatter valueFormatter = new ValueFormatter();
     private int itemsCount;
     private final int indexInterval;
     private String volMaIndex1, volMaIndex2, volIndex;
@@ -98,7 +93,7 @@ public class VolumeRender extends BaseRender {
         if (0 != vol && top > bottom - 2) {
             top = bottom - 2;
         }
-        if ((null == view.getVolChartStatus() && view.getKlineStatus().showLine()) || view.getVolChartStatus() == Status.VolChartStatus.LINE_CHART) {
+        if ((view.getKlineStatus() == Status.KLINE_SHOW_TIME_LINE) || view.getVolChartStatus() == Status.VOL_SHOW_VERTICAL_BAR) {
             canvas.drawRect(curX - lineVolWidth, top, curX + lineVolWidth, bottom, linePaint);
         } else if (close >= open) {//涨
             canvas.drawRect(curX - r, top, curX + r, bottom, increasePaint);
@@ -113,37 +108,27 @@ public class VolumeRender extends BaseRender {
         String text;
         volLegendMarginTop += volLegendMarginTop;
         if (position == itemsCount - 1 && view.isAnimationLast()) {
-            text = volIndex + NumberTools.formatAmount(getValueFormatter().format(view.getLastVol())) + "  ";
+            text = volIndex +getValueFormatter().format(view.getLastVol()) + "  ";
         } else {
-            text = volIndex + NumberTools.formatAmount(getValueFormatter().format(values[Constants.INDEX_VOL])) + "  ";
+            text = volIndex + getValueFormatter().format(values[Constants.INDEX_VOL]) + "  ";
         }
         canvas.drawText(text, x, y, volLeftPaint);
         x += view.getCommonTextPaint().measureText(text);
 
         if (position == itemsCount - 1 && view.isAnimationLast() && 0 != endMaOne) {
-            text = volMaIndex1 + NumberTools.formatAmount(getValueFormatter().format(endMaOne)) + "  ";
+            text = volMaIndex1 + getValueFormatter().format(endMaOne) + "  ";
         } else {
-            text = volMaIndex1 + NumberTools.formatAmount(getValueFormatter().format(values[Constants.INDEX_VOL_MA_1])) + "  ";
+            text = volMaIndex1 + getValueFormatter().format(values[Constants.INDEX_VOL_MA_1]) + "  ";
         }
         canvas.drawText(text, x, y, maOnePaint);
         x += maOnePaint.measureText(text);
         if (position == itemsCount - 1 && view.isAnimationLast() && 0 != endMaOne) {
 
-            text = volMaIndex2 + NumberTools.formatAmount(getValueFormatter().format(endMaTwo)) + "  ";
+            text = volMaIndex2 + getValueFormatter().format(endMaTwo) + "  ";
         } else {
-            text = volMaIndex2 + NumberTools.formatAmount(getValueFormatter().format(values[Constants.INDEX_VOL_MA_2])) + "  ";
+            text = volMaIndex2 + getValueFormatter().format(values[Constants.INDEX_VOL_MA_2]) + "  ";
         }
         canvas.drawText(text, x, y, maTwoPaint);
-    }
-
-    @Override
-    public IValueFormatter getValueFormatter() {
-        return valueFormatter;
-    }
-
-    @Override
-    public void setValueFormatter(IValueFormatter valueFormatter) {
-        this.valueFormatter = valueFormatter;
     }
 
     @Override
@@ -236,15 +221,15 @@ public class VolumeRender extends BaseRender {
         this.decreasePaint.setColor(color);
     }
 
-    public float getMinValue(float... values) {
+    public float getMinValue(double... values) {
         int length = values.length;
         if (length == 0) {
             return 0;
         }
         Arrays.sort(values);
-        for (int i = 0; i < length; i++) {
-            if (values[i] >= 0) {
-                return values[i];
+        for (double value : values) {
+            if (value >= 0) {
+                return (float) value;
             }
         }
         return 0;

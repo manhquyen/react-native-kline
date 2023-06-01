@@ -7,7 +7,7 @@ import java.util.Date;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.formatter
  * @FileName     : DateFormatter.java
  * @Author       : chao
  * @Date         : 2019/4/8
@@ -16,18 +16,10 @@ import java.util.Date;
  *************************************************************************/
 
 public class DateFormatter implements IDateTimeFormatter {
-    public static int period = -1;
-
     @Override
     public String format(Date date) {
         if (null != date) {
-            if (period < 60) {
-                return DateUtil.HHmmTimeFormat.format(date);
-            } else if (period < 60 * 24) {
-                return DateUtil.HHmmTimeFormat.format(date);
-            } else  {
-                return DateUtil.yyyyMMddFormat.format(date);
-            }
+            return DateUtil.yyyyMMddFormat.format(date);
         } else {
             return "";
         }

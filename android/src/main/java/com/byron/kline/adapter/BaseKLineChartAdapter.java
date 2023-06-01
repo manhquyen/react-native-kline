@@ -5,13 +5,13 @@ import android.database.DataSetObserver;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.byron.kline.adapter.IAdapter;
+import java.util.Date;
 
 
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.adapter
  * @FileName     : BaseKLineChartAdapter.java
  * @Author       : chao
  * @Date         : 2019/4/8
@@ -19,32 +19,96 @@ import com.byron.kline.adapter.IAdapter;
  * @version      : V1
  *************************************************************************/
 
-public abstract class BaseKLineChartAdapter<T> implements IAdapter<T> {
+public abstract class BaseKLineChartAdapter<T> implements java.io.Serializable {
 
-    private Handler handler = new Handler(Looper.getMainLooper());
-    private DataSetObservable mDataSetObservable = new DataSetObservable();
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final DataSetObservable dataSetObservable = new DataSetObservable();
 
-    private Runnable notifyDataChangeRunable = () -> mDataSetObservable.notifyChanged();
-    private Runnable notifyDataWillChangeRunnable = () -> mDataSetObservable.notifyInvalidated();
+    private final Runnable notifyDataChangeRunnable = dataSetObservable::notifyChanged;
+    private final Runnable notifyDataWillChangeRunnable = dataSetObservable::notifyInvalidated;
 
-    @Override
+    /**
+     * 发生变化
+     */
     public void notifyDataSetChanged() {
-        handler.post(notifyDataChangeRunable);
+        handler.post(notifyDataChangeRunnable);
     }
 
 
-    @Override
+    /**
+     * 即将发生变化
+     */
     public void notifyDataWillChanged() {
         handler.post(notifyDataWillChangeRunnable);
     }
 
-    @Override
+    /**
+     * 添加数据观察者
+     *
+     * @param observer {@link DataSetObserver}
+     */
     public void registerDataSetObserver(DataSetObserver observer) {
-        mDataSetObservable.registerObserver(observer);
+        dataSetObservable.registerObserver(observer);
     }
 
-    @Override
+
+    /**
+     * 移除一个数据观察者
+     *
+     * @param observer {@link DataSetObserver}
+     */
     public void unregisterDataSetObserver(DataSetObserver observer) {
-        mDataSetObservable.unregisterObserver(observer);
+        dataSetObservable.unregisterObserver(observer);
     }
+
+    /**
+     * 获取数据个数
+     *
+     * @return int
+     */
+    public abstract int getCount();
+
+    /**
+     * 获取某个数据时间
+     *
+     * @param position int
+     * @return {@link Date}
+     */
+    public abstract Date getDate(int position);
+
+    /**
+     * 获取某个数据时间
+     *
+     * @param position int
+     * @return {@link Date}
+     */
+    public abstract long getDateMillion(int position);
+
+    /**
+     * 获取处理的数据
+     */
+    public abstract float[] getPoints();
+
+    /**
+     * 重置显示位置
+     */
+    public abstract boolean getResetShowPosition();
+
+    /**
+     * 设置重置显示位置
+     */
+    public abstract void setResetShowPosition(boolean resetShowPosition);
+
+
+    /**
+     * 设置重置显示位置
+     */
+    public abstract boolean getResetLastAnim();
+
+    /**
+     * 设置重置最后一根柱子动画
+     */
+    public abstract void setResetLastAnim(boolean resetLastAnim);
+
+
 }

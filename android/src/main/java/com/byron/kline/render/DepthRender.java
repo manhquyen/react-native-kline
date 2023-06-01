@@ -8,8 +8,8 @@ import android.graphics.Path;
 /*************************************************************************
  * Description   : 修改,不为index为基础绘制X,而是为X坐标为基础绘制
  *
- * @PackageName  : com.byron.kline.draw
- * @FileName     : DepthDraw.java
+ * @PackageName  : com.byron.kline.render
+ * @FileName     : DepthRender.java
  * @Author       : chao
  * @Date         : 2019/4/9
  * @Email        : icechliu@gmail.com
@@ -20,10 +20,10 @@ public class DepthRender {
     private Paint depthPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint areaPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private int leftColor = Color.parseColor("#ffffff");
-    private int leftAreaColor = Color.parseColor("#4CD964");
-    private int rightColor = Color.parseColor("#C7A976");
-    private int rightAreaColor = Color.parseColor("#FF5959");
+    private int leftColor = Color.GREEN;
+    private int leftAreaColor = Color.parseColor("#005000");
+    private int rightColor = Color.RED;
+    private int rightAreaColor = Color.parseColor("#500000");
 
     private Paint selectedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -36,7 +36,7 @@ public class DepthRender {
     private double widthInterval;
     private double heightInterval;
     private double topPadding;
-    private double bottomPadding = 30;
+    private double bottomPadding;
 
     public void setHeight(float height) {
         this.height = height;

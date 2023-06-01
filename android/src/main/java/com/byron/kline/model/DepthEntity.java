@@ -3,7 +3,7 @@ package com.byron.kline.model;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.entity
+ * @PackageName  : com.byron.kline.model
  * @FileName     : DepthEntity.java
  * @Author       : chao
  * @Date         : 2019/4/9

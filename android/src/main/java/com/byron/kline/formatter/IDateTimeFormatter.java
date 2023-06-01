@@ -5,7 +5,7 @@ import java.util.Date;
 /*************************************************************************
  * Description   :
  *
- * @PackageName  : com.byron.kline.utils
+ * @PackageName  : com.byron.kline.formatter
  * @FileName     : IDateTimeFormatter.java
  * @Author       : chao
  * @Date         : 2019/4/8
